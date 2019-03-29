@@ -1,9 +1,10 @@
-package org.wecancodeit.nhlteams;
+package org.wecancodeit.nhlteams.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Team {
@@ -15,14 +16,18 @@ public class Team {
 	private String location;
 	@Lob
 	private String logo;
+	
+	@ManyToOne 
+	private Division division;
 
 	public Team() {
 	}
 
-	public Team(String name, String location, String logo) {
+	public Team(String name, String location, String logo, Division division) {
 		this.name = name;
 		this.location = location;
 		this.logo = logo;
+		this.division= division;
 	}
 
 	public Long getId() {
@@ -40,5 +45,10 @@ public class Team {
 	public String getLogo() {
 		return logo;
 	}
+
+	public Division getDivision() {
+		return division;
+	}
+	
 
 }

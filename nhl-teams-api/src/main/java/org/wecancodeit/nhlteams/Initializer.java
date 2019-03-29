@@ -4,6 +4,8 @@ import javax.annotation.Resource;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
+import org.wecancodeit.nhlteams.models.Team;
+import org.wecancodeit.nhlteams.repositories.TeamRepository;
 
 @Service
 public class Initializer implements CommandLineRunner {

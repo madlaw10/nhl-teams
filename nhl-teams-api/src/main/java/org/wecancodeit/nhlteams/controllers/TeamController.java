@@ -1,4 +1,4 @@
-package org.wecancodeit.nhlteams;
+package org.wecancodeit.nhlteams.controllers;
 
 import java.util.Collection;
 
@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.wecancodeit.nhlteams.models.Team;
+import org.wecancodeit.nhlteams.repositories.TeamRepository;
 
 @CrossOrigin
 @RestController
