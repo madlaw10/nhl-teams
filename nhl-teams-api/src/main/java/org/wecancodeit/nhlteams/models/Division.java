@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Division {
 	@Id
@@ -17,6 +19,7 @@ public class Division {
 	private String name;
 
 	@ManyToOne
+	@JsonIgnore
 	private Conference conference;
 	
 	@OneToMany(mappedBy="division")

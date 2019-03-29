@@ -148,8 +148,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Teams;
 
 function Teams(teams) {
-  return "\n    <ul class=\"grid-list\">\n    ".concat(teams.map(function (team) {
-    return "\n        <li class=\"grid-list__item\">\n          <div class=\"grid-item-container\">\n            <img class=\"team-logo\" src=\"".concat(team.logo, "\" alt=\"Team Logo\">\n        </div>\n      </li>\n    ");
+  return "\n    <ul class=\"flex-list\">\n    ".concat(teams.map(function (team) {
+    return "\n        <li class=\"flex-list__item\">\n          <div class=\"flex-item-container\">\n            <img class=\"team-logo\" src=\"".concat(team.logo, "\" alt=\"Team Logo\">\n        </div>\n      </li>\n    ");
   }).join(''), "\n  </ul>\n  ");
 }
 },{}],"js/app.js":[function(require,module,exports) {
@@ -200,7 +200,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56771" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60818" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
