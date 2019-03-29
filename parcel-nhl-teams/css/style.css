@@ -1,0 +1,46 @@
+/*------------
+Global Styles
+-------------*/
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	margin: 1rem;
+}
+
+/*------------
+BODY
+-------------*/
+
+.grid-list{
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	
+}
+
+.grid-item-container{
+	display: flex;
+	align-content: center;
+	justify-content: center;
+	width: 400px;
+	height: 400px;
+	background-color: black;
+	margin:1.5rem;
+}
+
+.grid-list--item img{
+	width: 400px;
+	height: auto;
+}
+
+.item-name{
+    background-color: rgba(0,0,0,.6);
+	color: #FFF;
+    position: absolute;
+    margin-top: 150px;
+	padding: 1rem;
+}
