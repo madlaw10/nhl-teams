@@ -15,14 +15,14 @@ body{
 BODY
 -------------*/
 
-.grid-list{
+.flex-list{
 	display: flex;
 	flex-wrap: wrap;
 	list-style: none;
 	
 }
 
-.grid-item-container{
+.flex-item-container{
 	display: flex;
 	align-content: center;
 	justify-content: center;
@@ -32,7 +32,7 @@ BODY
 	margin:1.5rem;
 }
 
-.grid-list--item img{
+.flex-list--item img{
 	width: 400px;
 	height: auto;
 }

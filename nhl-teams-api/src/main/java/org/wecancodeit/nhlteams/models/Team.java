@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Team {
 
@@ -17,7 +19,8 @@ public class Team {
 	@Lob
 	private String logo;
 	
-	@ManyToOne 
+	@ManyToOne
+	@JsonIgnore
 	private Division division;
 
 	public Team() {
