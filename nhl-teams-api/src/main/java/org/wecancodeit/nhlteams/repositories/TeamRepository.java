@@ -6,6 +6,8 @@ import org.wecancodeit.nhlteams.models.Team;
 
 @Repository
 public interface TeamRepository extends CrudRepository<Team, Long>{
+
+	Team findByName(String string);
 	
 	
 

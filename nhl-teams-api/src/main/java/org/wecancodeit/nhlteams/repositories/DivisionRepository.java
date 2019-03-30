@@ -7,4 +7,6 @@ import org.wecancodeit.nhlteams.models.Division;
 @Repository
 public interface DivisionRepository extends CrudRepository<Division, Long>{
 
+	Division findByName(String string);
+
 }
