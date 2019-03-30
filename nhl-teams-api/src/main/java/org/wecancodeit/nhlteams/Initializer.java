@@ -96,12 +96,6 @@ public class Initializer implements CommandLineRunner {
 				centralDivision
 				));
 		teamRepo.save(new Team(
-				"Stars", 
-				"Dallas", 
-				"https://pbs.twimg.com/profile_images/1110351450323013632/-KJmATmz_400x400.png",
-				centralDivision
-				));
-		teamRepo.save(new Team(
 				"Wild", 
 				"Minnesota", 
 				"https://pbs.twimg.com/profile_images/709718722039173120/xKcLQnVU_400x400.jpg",
@@ -134,7 +128,7 @@ public class Initializer implements CommandLineRunner {
 		teamRepo.save(new Team(
 				"Coyotes", 
 				"Arizona", 
-				"https://pbs.twimg.com/profile_images/468803017098022912/hxPA5sLr_400x400.jpeg",
+				"https://pbs.twimg.com/profile_images/1107334343175790592/Cqt5B9y6_400x400.png",
 				pacificDivision
 				));
 		teamRepo.save(new Team(
@@ -168,7 +162,7 @@ public class Initializer implements CommandLineRunner {
 				pacificDivision
 				));
 		teamRepo.save(new Team(
-				"Knights", 
+				"Golden Knights", 
 				"Vegas", 
 				"https://pbs.twimg.com/profile_images/1066744808159404032/Vrns0dZF_400x400.jpg",
 				pacificDivision
