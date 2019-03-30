@@ -4,9 +4,11 @@ import javax.annotation.Resource;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
+import org.wecancodeit.nhlteams.models.Comment;
 import org.wecancodeit.nhlteams.models.Conference;
 import org.wecancodeit.nhlteams.models.Division;
 import org.wecancodeit.nhlteams.models.Team;
+import org.wecancodeit.nhlteams.repositories.CommentRepository;
 import org.wecancodeit.nhlteams.repositories.ConferenceRepository;
 import org.wecancodeit.nhlteams.repositories.DivisionRepository;
 import org.wecancodeit.nhlteams.repositories.TeamRepository;
@@ -20,6 +22,8 @@ public class Initializer implements CommandLineRunner {
 	DivisionRepository divisionRepo;	
 	@Resource
 	TeamRepository teamRepo;
+	@Resource
+	CommentRepository commentRepo;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -29,7 +33,7 @@ public class Initializer implements CommandLineRunner {
 		Conference westernConference = conferenceRepo.save(new Conference("Western"));
 		Division centralDivision = divisionRepo.save(new Division("Central", westernConference));
 		Division pacificDivision = divisionRepo.save(new Division("Pacific", westernConference));
-		teamRepo.save(new Team(
+		Team blueJackets = teamRepo.save(new Team(
 				"Blue Jackets", 
 				"Columbus", 
 				"https://pbs.twimg.com/profile_images/1101585780311580678/Co9-3uMV_400x400.png",
@@ -215,6 +219,9 @@ public class Initializer implements CommandLineRunner {
 				"https://pbs.twimg.com/profile_images/1066744808159404032/Vrns0dZF_400x400.jpg",
 				pacificDivision
 				));
+		commentRepo.save(new Comment("Love this team! Fifth line!", blueJackets));
+		commentRepo.save(new Comment("Never making it past round 1", blueJackets));
+		commentRepo.save(new Comment("CBJ!", blueJackets));
 	}
 
 }

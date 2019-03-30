@@ -66,7 +66,7 @@ main {
 	margin-top: 7rem;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	align-items: center;
 	margin-left: 5rem;
 	text-align: center;
 }
@@ -82,15 +82,6 @@ h2 {
 
 h3 {
 	font-size: 35px;
-}
-
-.team__logo {
-	height: 200px;
-	width: 200px;
-}
-
-.team__logo:hover {
-	transform: scale(1.1);
 }
 
 .list__item {
@@ -109,4 +100,51 @@ h3 {
 	justify-content: center;
 	background-color: #ffffff;
 	margin: 1.5rem;
+}
+
+.team__logo {
+	height: 200px;
+	width: 200px;
+}
+
+.team__logo:hover {
+	transform: scale(1.1);
+}
+
+/*------------
+TEAM & COMMENT
+-------------*/
+
+.comment__content {
+	background-color: rgba(0,0,0,.5);
+	color: #ffffff;
+	border: 2px solid black;
+	margin: 1rem;
+	padding: 1rem;
+	text-align: left;
+}
+
+.comment__content:hover {
+	transform: scale(1.1);
+}
+
+.single-comment__content {
+	background-color: rgba(0,0,0,.5);
+	color: #ffffff;
+	font-size: 2rem;
+	border: 2px solid black;
+	margin: 1rem;
+	padding: 1rem;
+	text-align: left;
+}
+
+.add__comment, .edit__comment {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1rem;
+}
+
+.add__team--comment, .edit__comment--content {
+	height: 200px;
+	width: 100%;
 }

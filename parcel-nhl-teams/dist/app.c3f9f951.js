@@ -135,8 +135,35 @@ function getRequest(location, callback) {
   });
 }
 
+function postRequest(location, requestBody, callback) {
+  fetch(location, {
+    method: "POST",
+    body: JSON.stringify(requestBody)
+  }).then(function (response) {
+    return response.json();
+  }).then(function (data) {
+    return callback(data);
+  }).catch(function (err) {
+    return console.log(err);
+  });
+}
+
+function deleteRequest(location, callback) {
+  fetch(location, {
+    method: "DELETE"
+  }).then(function (response) {
+    return response.json();
+  }).then(function (data) {
+    return callback(data);
+  }).catch(function (err) {
+    return console.log(err);
+  });
+}
+
 var _default = {
-  getRequest: getRequest
+  getRequest: getRequest,
+  postRequest: postRequest,
+  deleteRequest: deleteRequest
 };
 exports.default = _default;
 },{}],"js/utils/event-actions.js":[function(require,module,exports) {
@@ -245,7 +272,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function Division(division) {
   return "\n    <h2 class=\"single-division__name\">".concat(division.name, "</h2>\n    ").concat((0, _Teams.default)(division.teams), "\n    ");
 }
-},{"./Teams":"js/components/Teams.js"}],"js/components/Team.js":[function(require,module,exports) {
+},{"./Teams":"js/components/Teams.js"}],"js/components/Comments.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Comments;
+
+function Comments(comments) {
+  return "\n      <ul class=\"list\">\n      ".concat(comments.map(function (comment) {
+    return "\n          <li class=\"list__item\">\n            <div class=\"item-container\">\n              <p class=\"comment__content\" id=\"".concat(comment.id, "\">").concat(comment.content, "</p>\n          </div>\n        </li>\n      ");
+  }).join(''), "\n    </ul>\n    ");
+}
+},{}],"js/components/Team.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -253,8 +293,23 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Team;
 
+var _Comments = _interopRequireDefault(require("./Comments"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function Team(team) {
-  return "\n    <h2 class=\"single-team__name\">".concat(team.location, " ").concat(team.name, "</h2>\n    <img class=\"single-team__logo\" src=\"").concat(team.logo, "\">\n    <section class=\"add__comment\">\n        <h3>Add Team Comment</h3>\n        <input type=\"select\" class=\"add__team-id\" placeholder=\"team name\">\n            <input type=\"text\" class=\"add__team--comment\" placeholder=\"comment\">\n            <button class=\"add__comment--submit clickable\">Add Comment</button>\n        </section> \n    ");
+  return "\n    <h2 class=\"single-team__name\">".concat(team.location, " ").concat(team.name, "</h2>\n    <img class=\"single-team__logo\" src=\"").concat(team.logo, "\">\n\n    ").concat((0, _Comments.default)(team.comments), "\n\n    <section class=\"add__comment\">\n        <h3>Add A Comment</h3>\n        <input type=\"text\" class=\"add__team--comment\" placeholder=\"Type your comment here\">\n        <input type=\"hidden\" class=\"add__team--team\" value=\"").concat(team.id, "\"> \n        <button class=\"add__comment--submit\">Add Comment</button>\n    </section> \n    ");
+}
+},{"./Comments":"js/components/Comments.js"}],"js/components/Comment.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Comment;
+
+function Comment(comment) {
+  return "\n    <p class=\"single-comment__content\">".concat(comment.content, "</p>\n\n    <section class=\"edit__comment\">\n        <h3>Edit This Comment</h3>\n        <input type=\"text\" class=\"edit__comment--content\" placeholder=\"").concat(comment.content, "\">\n        <button class=\"edit__comment--submit\" id=\"").concat(comment.id, "\">Replace Comment</button>\n    </section> \n\n    <section class=\"delete__comment\">\n        <button class=\"delete__team--comment\" id=\"").concat(comment.id, "\">Delete Comment</button>\n    </section>\n\n    ");
 }
 },{}],"js/app.js":[function(require,module,exports) {
 "use strict";
@@ -277,6 +332,8 @@ var _Teams = _interopRequireDefault(require("./components/Teams"));
 
 var _Team = _interopRequireDefault(require("./components/Team"));
 
+var _Comment = _interopRequireDefault(require("./components/Comment"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 header();
@@ -297,6 +354,10 @@ function main() {
   viewSingleConference();
   viewSingleDivision();
   viewSingleTeam();
+  viewSingleComment();
+  addComment();
+  editComment();
+  removeSingleComment();
 }
 
 function viewAllConferences() {
@@ -359,6 +420,56 @@ function viewSingleTeam() {
   });
 }
 
+function addComment() {
+  _eventActions.default.on(getAppContext(), 'click', function () {
+    if (event.target.classList.contains('add__comment--submit')) {
+      var commentContent = event.target.parentElement.querySelector('.add__team--comment').value;
+      var teamId = event.target.parentElement.querySelector('.add__team--team').value;
+
+      _apiActions.default.postRequest('http://localhost:8080/comments/add', {
+        commentContent: commentContent,
+        teamId: teamId
+      }, function (team) {
+        return getAppContext().innerHTML = (0, _Team.default)(team);
+      });
+    }
+  });
+}
+
+function viewSingleComment() {
+  _eventActions.default.on(getAppContext(), 'click', function () {
+    if (event.target.classList.contains('comment__content')) {
+      _apiActions.default.getRequest("http://localhost:8080/comments/".concat(event.target.id), function (comment) {
+        getAppContext().innerHTML = (0, _Comment.default)(comment);
+      });
+    }
+  });
+}
+
+function editComment() {
+  _eventActions.default.on(getAppContext(), 'click', function () {
+    if (event.target.classList.contains('edit__comment--submit')) {
+      var newContent = event.target.parentElement.querySelector('.edit__comment--content').value;
+
+      _apiActions.default.postRequest("http://localhost:8080/comments/edit/".concat(event.target.id), {
+        newContent: newContent
+      }, function (comment) {
+        return getAppContext().innerHTML = (0, _Comment.default)(comment);
+      });
+    }
+  });
+}
+
+function removeSingleComment() {
+  _eventActions.default.on(getAppContext(), 'click', function () {
+    if (event.target.classList.contains('delete__team--comment')) {
+      _apiActions.default.deleteRequest("http://localhost:8080/comments/delete/".concat(event.target.id), function (team) {
+        getAppContext().innerHTML = (0, _Team.default)(team);
+      });
+    }
+  });
+}
+
 function getHeaderContext() {
   return document.querySelector("#header");
 }
@@ -366,7 +477,7 @@ function getHeaderContext() {
 function getAppContext() {
   return document.querySelector("#app");
 }
-},{"./utils/api-actions":"js/utils/api-actions.js","./utils/event-actions":"js/utils/event-actions.js","./components/Header":"js/components/Header.js","./components/Conferences":"js/components/Conferences.js","./components/Conference":"js/components/Conference.js","./components/Divisions":"js/components/Divisions.js","./components/Division":"js/components/Division.js","./components/Teams":"js/components/Teams.js","./components/Team":"js/components/Team.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./utils/api-actions":"js/utils/api-actions.js","./utils/event-actions":"js/utils/event-actions.js","./components/Header":"js/components/Header.js","./components/Conferences":"js/components/Conferences.js","./components/Conference":"js/components/Conference.js","./components/Divisions":"js/components/Divisions.js","./components/Division":"js/components/Division.js","./components/Teams":"js/components/Teams.js","./components/Team":"js/components/Team.js","./components/Comment":"js/components/Comment.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -394,7 +505,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51115" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54007" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
