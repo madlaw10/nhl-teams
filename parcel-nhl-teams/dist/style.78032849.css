@@ -12,6 +12,42 @@ body{
 }
 
 /*------------
+HEADER
+-------------*/
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.nhl__logo {
+	width: 50px;
+	height: auto;
+}
+
+.main-header__title {
+	display: flex;
+	align-items: center;
+}
+
+.main-header__nav {
+	margin-top: 7px;
+}
+
+.button {
+	background-color:navy;
+	color: #ffffff;
+	border: none;
+	margin-right: 3px;
+	padding: 5px;
+}
+
+.button:hover {
+	transform: scale(1.1);
+}
+
+/*------------
 BODY
 -------------*/
 
@@ -28,21 +64,13 @@ BODY
 	justify-content: center;
 	width: 400px;
 	height: 400px;
-	background-color: black;
+	background-color: #ffffff;
 	margin:1.5rem;
 }
 
 .flex-list--item img{
 	width: 400px;
 	height: auto;
-}
-
-.item-name{
-    background-color: rgba(0,0,0,.6);
-	color: #FFF;
-    position: absolute;
-    margin-top: 150px;
-	padding: 1rem;
 }
 
 
