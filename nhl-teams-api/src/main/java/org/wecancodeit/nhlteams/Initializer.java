@@ -25,6 +25,10 @@ public class Initializer implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		Conference easternConference = conferenceRepo.save(new Conference("Eastern"));
 		Division metropolitanDivision = divisionRepo.save(new Division("Metropolitan", easternConference));
+		Division atlanticDivision = divisionRepo.save(new Division("Atlantic", easternConference));
+		Conference westernConference = conferenceRepo.save(new Conference("Western"));
+		Division centralDivision = divisionRepo.save(new Division("Central", westernConference));
+		Division pacificDivision = divisionRepo.save(new Division("Pacific", westernConference));
 		teamRepo.save(new Team(
 				"Blue Jackets", 
 				"Columbus", 
@@ -72,6 +76,102 @@ public class Initializer implements CommandLineRunner {
 				"Carolina",
 				"https://pbs.twimg.com/profile_images/1110169375364001793/Msnh515L_400x400.jpg",
 				metropolitanDivision
+				));
+		teamRepo.save(new Team(
+				"Blackhawks", 
+				"Chicago", 
+				"https://pbs.twimg.com/profile_images/1110215057579958273/uDJCParl_400x400.png",
+				centralDivision
+				));
+		teamRepo.save(new Team(
+				"Avalanche", 
+				"Colorado", 
+				"https://pbs.twimg.com/profile_images/833561893528752129/yzeYY0Yz_400x400.jpg",
+				centralDivision
+				));
+		teamRepo.save(new Team(
+				"Stars", 
+				"Dallas", 
+				"https://pbs.twimg.com/profile_images/1110351450323013632/-KJmATmz_400x400.png",
+				centralDivision
+				));
+		teamRepo.save(new Team(
+				"Stars", 
+				"Dallas", 
+				"https://pbs.twimg.com/profile_images/1110351450323013632/-KJmATmz_400x400.png",
+				centralDivision
+				));
+		teamRepo.save(new Team(
+				"Wild", 
+				"Minnesota", 
+				"https://pbs.twimg.com/profile_images/709718722039173120/xKcLQnVU_400x400.jpg",
+				centralDivision
+				));
+		teamRepo.save(new Team(
+				"Predators", 
+				"Nashville", 
+				"https://pbs.twimg.com/profile_images/773586287911661568/KeeZkTah_400x400.jpg",
+				centralDivision
+				));
+		teamRepo.save(new Team(
+				"Blues", 
+				"St. Louis", 
+				"https://pbs.twimg.com/profile_images/1109824668238786560/1TRr3GLN_400x400.jpg",
+				centralDivision
+				));
+		teamRepo.save(new Team(
+				"Jets", 
+				"Winnipeg", 
+				"https://pbs.twimg.com/profile_images/592786657042145280/XTOAsRiu_400x400.jpg",
+				centralDivision
+				));
+		teamRepo.save(new Team(
+				"Ducks", 
+				"Anaheim", 
+				"https://pbs.twimg.com/profile_images/468803017098022912/hxPA5sLr_400x400.jpeg",
+				pacificDivision
+				));
+		teamRepo.save(new Team(
+				"Coyotes", 
+				"Arizona", 
+				"https://pbs.twimg.com/profile_images/468803017098022912/hxPA5sLr_400x400.jpeg",
+				pacificDivision
+				));
+		teamRepo.save(new Team(
+				"Flames", 
+				"Calgary", 
+				"https://images-na.ssl-images-amazon.com/images/I/61bVy63ia8L._AC_SY400_.jpg",
+				pacificDivision
+				));
+		teamRepo.save(new Team(
+				"Oilers", 
+				"Edmonton", 
+				"https://pbs.twimg.com/profile_images/1064912822755221504/_7Ac4imT_400x400.jpg",
+				pacificDivision
+				));
+		teamRepo.save(new Team(
+				"Kings", 
+				"Los Angeles", 
+				"https://simplegourmetkitchen.com/wp-content/uploads/2018/10/Untitled-design20-1.png",
+				pacificDivision
+				));
+		teamRepo.save(new Team(
+				"Sharks", 
+				"San Jose", 
+				"https://pbs.twimg.com/profile_images/1111671338538696704/uPg1DkKT_400x400.png",
+				pacificDivision
+				));
+		teamRepo.save(new Team(
+				"Canucks", 
+				"Vancouver", 
+				"https://pbs.twimg.com/profile_images/476078388755431424/x6jrTmp8_400x400.jpeg",
+				pacificDivision
+				));
+		teamRepo.save(new Team(
+				"Knights", 
+				"Vegas", 
+				"https://pbs.twimg.com/profile_images/1066744808159404032/Vrns0dZF_400x400.jpg",
+				pacificDivision
 				));
 	}
 
