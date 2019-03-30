@@ -139,7 +139,81 @@ var _default = {
   getRequest: getRequest
 };
 exports.default = _default;
-},{}],"js/components/Teams.js":[function(require,module,exports) {
+},{}],"js/utils/event-actions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function on(element, eventType, callback) {
+  element.addEventListener(eventType, function (event) {
+    return callback(event);
+  });
+}
+
+var _default = {
+  on: on
+};
+exports.default = _default;
+},{}],"js/components/Header.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Header;
+
+function Header() {
+  return "\n    <div class=\"main-header__title\">\n        <img class=\"nhl__logo\" src=\"https://files.slack.com/files-pri/T14LST83D-FHH7U3VAT/image.png\">\n        <h1>National Hockey League</h1>\n    </div>\n    <nav class=\"main-header__nav\">\n        <button class=\"view__all-conferences button\">Conferences</button>\n        <button class=\"view__all-divisions button\">Divisions</button>\n        <button class=\"view__all-teams button\">Teams</button>\n    </nav>\n    ";
+}
+},{}],"js/components/Divisions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Divisions;
+
+function Divisions(divisions) {
+  return "\n      <ul class=\"list\">\n      ".concat(divisions.map(function (division) {
+    return "\n          <li class=\"list__item\">\n            <div class=\"item-container\">\n              <h3 class=\"division__name\" id=\"".concat(division.id, "\">").concat(division.name, "</h3>\n          </div>\n        </li>\n      ");
+  }).join(''), "\n    </ul>\n    ");
+}
+},{}],"js/components/Conferences.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Conferences;
+
+var _Divisions = _interopRequireDefault(require("./Divisions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Conferences(conferences) {
+  return "\n      <ul class=\"list\">\n      ".concat(conferences.map(function (conference) {
+    return "\n          <li class=\"list__item\">\n            <div class=\"item-container\">\n              <h2 class=\"conference__name\" id=\"".concat(conference.id, "\">").concat(conference.name, "</h2>\n              ").concat((0, _Divisions.default)(conference.divisions), "\n          </div>\n        </li>\n      ");
+  }).join(''), "\n    </ul>\n    ");
+}
+},{"./Divisions":"js/components/Divisions.js"}],"js/components/Conference.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Conference;
+
+var _Divisions = _interopRequireDefault(require("./Divisions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Conference(conference) {
+  return "\n    <h2 class=\"conference__name\">".concat(conference.name, "</h2>\n    <ul class=\"conference__divisions\">\n        <li class=\"conference__division>\n            ").concat((0, _Divisions.default)(conference.divisions), "\n        </li>\n    </ul>\n    ");
+}
+},{"./Divisions":"js/components/Divisions.js"}],"js/components/Teams.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -149,30 +223,146 @@ exports.default = Teams;
 
 function Teams(teams) {
   return "\n    <ul class=\"flex-list\">\n    ".concat(teams.map(function (team) {
-    return "\n        <li class=\"flex-list__item\">\n          <div class=\"flex-item-container\">\n            <img class=\"team-logo\" src=\"".concat(team.logo, "\" alt=\"Team Logo\">\n        </div>\n      </li>\n    ");
+    return "\n        <li class=\"flex-list__item\">\n          <div class=\"flex-item-container\">\n            <img id=\"".concat(team.id, "\" class=\"team__logo\" src=\"").concat(team.logo, "\" alt=\"Team Logo\">\n        </div>\n      </li>\n    ");
   }).join(''), "\n  </ul>\n  ");
+}
+},{}],"js/components/Division.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Division;
+
+var _Teams = _interopRequireDefault(require("./Teams"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Division(division) {
+  return "\n    <h2 class=\"division__name\">".concat(division.name, "</h2>\n    ").concat((0, _Teams.default)(division.teams), "\n    ");
+}
+},{"./Teams":"js/components/Teams.js"}],"js/components/Team.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Team;
+
+function Team(team) {
+  return "\n    <h2 class=\"division__name\">".concat(team.location, " ").concat(team.name, "</h2>\n    <img class=\"team__logo\" src=\"").concat(team.logo, "\">\n    ");
 }
 },{}],"js/app.js":[function(require,module,exports) {
 "use strict";
 
 var _apiActions = _interopRequireDefault(require("./utils/api-actions"));
 
+var _eventActions = _interopRequireDefault(require("./utils/event-actions"));
+
+var _Header = _interopRequireDefault(require("./components/Header"));
+
+var _Conferences = _interopRequireDefault(require("./components/Conferences"));
+
+var _Conference = _interopRequireDefault(require("./components/Conference"));
+
+var _Divisions = _interopRequireDefault(require("./components/Divisions"));
+
+var _Division = _interopRequireDefault(require("./components/Division"));
+
 var _Teams = _interopRequireDefault(require("./components/Teams"));
+
+var _Team = _interopRequireDefault(require("./components/Team"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+header();
 main();
 
+function header() {
+  getHeaderContext().innerHTML = (0, _Header.default)();
+  viewAllConferences();
+  viewAllDivisions();
+  viewAllTeams();
+}
+
 function main() {
-  _apiActions.default.getRequest('http://localhost:8080/teams', function (teams) {
-    getAppContext().innerHTML = (0, _Teams.default)(teams);
+  _apiActions.default.getRequest('http://localhost:8080/conferences', function (conferences) {
+    getAppContext().innerHTML = (0, _Conferences.default)(conferences);
   });
+
+  viewSingleConference();
+  viewSingleDivision();
+  viewSingleTeam();
+}
+
+function viewAllConferences() {
+  _eventActions.default.on(getHeaderContext(), 'click', function () {
+    if (event.target.classList.contains('view__all-conferences')) {
+      _apiActions.default.getRequest("http://localhost:8080/conferences", function (conferences) {
+        getAppContext().innerHTML = (0, _Conferences.default)(conferences);
+      });
+    }
+  });
+}
+
+function viewSingleConference() {
+  _eventActions.default.on(getAppContext(), 'click', function () {
+    if (event.target.classList.contains('conference__name')) {
+      _apiActions.default.getRequest("http://localhost:8080/conferences/".concat(event.target.id), function (conference) {
+        getAppContext().innerHTML = (0, _Conference.default)(conference);
+      });
+    }
+  });
+}
+
+function viewAllDivisions() {
+  _eventActions.default.on(getHeaderContext(), 'click', function () {
+    if (event.target.classList.contains('view__all-divisions')) {
+      _apiActions.default.getRequest("http://localhost:8080/divisions", function (divisions) {
+        getAppContext().innerHTML = (0, _Divisions.default)(divisions);
+      });
+    }
+  });
+}
+
+function viewSingleDivision() {
+  _eventActions.default.on(getAppContext(), 'click', function () {
+    if (event.target.classList.contains('division__name')) {
+      _apiActions.default.getRequest("http://localhost:8080/divisions/".concat(event.target.id), function (division) {
+        getAppContext().innerHTML = (0, _Division.default)(division);
+      });
+    }
+  });
+}
+
+function viewAllTeams() {
+  _eventActions.default.on(getHeaderContext(), 'click', function () {
+    if (event.target.classList.contains('view__all-teams')) {
+      _apiActions.default.getRequest("http://localhost:8080/teams", function (teams) {
+        getAppContext().innerHTML = (0, _Teams.default)(teams);
+      });
+    }
+  });
+}
+
+function viewSingleTeam() {
+  _eventActions.default.on(getAppContext(), 'click', function () {
+    if (event.target.classList.contains('team__logo')) {
+      _apiActions.default.getRequest("http://localhost:8080/teams/".concat(event.target.id), function (team) {
+        getAppContext().innerHTML = (0, _Team.default)(team);
+      });
+    }
+  });
+}
+
+function getHeaderContext() {
+  return document.querySelector("#header");
 }
 
 function getAppContext() {
   return document.querySelector("#app");
 }
-},{"./utils/api-actions":"js/utils/api-actions.js","./components/Teams":"js/components/Teams.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./utils/api-actions":"js/utils/api-actions.js","./utils/event-actions":"js/utils/event-actions.js","./components/Header":"js/components/Header.js","./components/Conferences":"js/components/Conferences.js","./components/Conference":"js/components/Conference.js","./components/Divisions":"js/components/Divisions.js","./components/Division":"js/components/Division.js","./components/Teams":"js/components/Teams.js","./components/Team":"js/components/Team.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -200,7 +390,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64404" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51837" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

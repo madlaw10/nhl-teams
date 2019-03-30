@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.wecancodeit.nhlteams.models.Conference;
@@ -22,6 +23,11 @@ public class ConferenceController {
 	@GetMapping("")
 	public Collection<Conference> getConferences() {
 		return (Collection<Conference>)conferenceRepo.findAll();
+	}
+	
+	@GetMapping("/{id}")
+	public Conference viewSingleConference(@PathVariable Long id) {
+		return conferenceRepo.findById(id).get();
 	}
 
 }
