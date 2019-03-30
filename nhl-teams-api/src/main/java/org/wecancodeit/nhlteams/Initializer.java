@@ -78,6 +78,54 @@ public class Initializer implements CommandLineRunner {
 				metropolitanDivision
 				));
 		teamRepo.save(new Team(
+				"Lightning", 
+				"Tampa Bay", 
+				"https://i.pinimg.com/originals/69/e7/78/69e778bd87cc6721b0215ce345d13942.jpg",
+				atlanticDivision
+				));
+		teamRepo.save(new Team(
+				"Bruins", 
+				"Boston", 
+				"https://pbs.twimg.com/profile_images/1086761189382721536/H3XXzKpi_400x400.jpg",
+				atlanticDivision
+				));
+		teamRepo.save(new Team(
+				"Maple Leafs", 
+				"Toronto", 
+				"https://pbs.twimg.com/profile_images/575383469569654784/pMKGi3jn_400x400.png",
+				atlanticDivision
+				));
+		teamRepo.save(new Team(
+				"Canadiens", 
+				"Montreal", 
+				"https://i.pinimg.com/originals/6c/a1/3f/6ca13f8f72a590329b8a191f5eded4d3.jpg",
+				atlanticDivision
+				));
+		teamRepo.save(new Team(
+				"Panthers", 
+				"Florida", 
+				"https://pbs.twimg.com/profile_images/770059115/florida-panthers-playoff-tickets1_400x400.png",
+				atlanticDivision
+				));
+		teamRepo.save(new Team(
+				"Sabres", 
+				"Buffalo", 
+				"https://secure.img1-fg.wfcdn.com/im/83471091/resize-h400-p1-w400%5Ecompr-r70/2901/29013577/NHL+Buffalo+Sabres+Roundel+Mat.jpg",
+				atlanticDivision
+				));
+		teamRepo.save(new Team(
+				"Red Wings", 
+				"Detroit", 
+				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQ9l6yCpfEFKPoey492IySKACTer6h623-PsaL6t8skelBQ-CLpQ",
+				atlanticDivision
+				));
+		teamRepo.save(new Team(
+				"Senators", 
+				"Ottawa", 
+				"https://pbs.twimg.com/profile_images/1411472234/image_400x400.jpg",
+				atlanticDivision
+				));
+		teamRepo.save(new Team(
 				"Blackhawks", 
 				"Chicago", 
 				"https://pbs.twimg.com/profile_images/1110215057579958273/uDJCParl_400x400.png",

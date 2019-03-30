@@ -7,4 +7,6 @@ import org.wecancodeit.nhlteams.models.Conference;
 @Repository
 public interface ConferenceRepository extends CrudRepository<Conference, Long>{
 
+	Conference findByName(String string);
+
 }
