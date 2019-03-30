@@ -1,7 +1,8 @@
 export default function Header() {
     return `
+    
     <div class="main-header__title">
-        <img class="nhl__logo" src="https://files.slack.com/files-pri/T14LST83D-FHH7U3VAT/image.png">
+        <img class="nhl__logo" src="http://hockeyonly.com/NhlNewLogo.gif">
         <h1>National Hockey League</h1>
     </div>
     <nav class="main-header__nav">

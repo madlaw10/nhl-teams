@@ -1,14 +1,11 @@
 /*------------
 Global Styles
 -------------*/
+
 * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-}
-
-body{
-	margin: 1rem;
 }
 
 /*------------
@@ -19,6 +16,11 @@ HEADER
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	min-width: 100%;
+	top: 0;
+	background-color: white;
+	height: 5rem;
+	position: fixed;
 }
 
 .nhl__logo {
@@ -29,14 +31,16 @@ HEADER
 .main-header__title {
 	display: flex;
 	align-items: center;
+	margin-left: 5rem;
 }
 
 .main-header__nav {
 	margin-top: 7px;
+	margin-right: 5rem;
 }
 
 .button {
-	background-color:navy;
+	background-color: navy;
 	color: #ffffff;
 	border: none;
 	margin-right: 3px;
@@ -51,24 +55,58 @@ HEADER
 BODY
 -------------*/
 
-.flex-list{
+body {
+	background-image: url("https://www.nhltraderumor.com/wp-content/uploads/2014/01/NHL-Logo-Wallpaper.jpg");
+	background-attachment: fixed;
+	background-size: cover;
+	min-width: 100%;
+}
+
+main {
+	margin-top: 7rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-left: 5rem;
+	text-align: center;
+}
+
+h2 {
+	font-size: 55px;
+}
+
+.conference__name:hover, .division__name:hover {
+	cursor: pointer;
+	transform: scale(1.1);
+}
+
+h3 {
+	font-size: 35px;
+}
+
+.team__logo {
+	height: 200px;
+	width: 200px;
+}
+
+.team__logo:hover {
+	transform: scale(1.1);
+}
+
+.list__item {
+	list-style-type: none;
+}
+
+.flex-list {
 	display: flex;
 	flex-wrap: wrap;
 	list-style: none;
-	
 }
 
-.flex-item-container{
+.flex-item-container {
 	display: flex;
 	align-content: center;
 	justify-content: center;
-	width: 400px;
-	height: 400px;
 	background-color: #ffffff;
-	margin:1.5rem;
-}
-
-.flex-list--item img{
-	width: 400px;
-	height: auto;
+	margin: 1.5rem;
 }

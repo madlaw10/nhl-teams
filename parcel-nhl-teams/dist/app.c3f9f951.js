@@ -166,7 +166,20 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Header;
 
 function Header() {
-  return "\n    <div class=\"main-header__title\">\n        <img class=\"nhl__logo\" src=\"https://files.slack.com/files-pri/T14LST83D-FHH7U3VAT/image.png\">\n        <h1>National Hockey League</h1>\n    </div>\n    <nav class=\"main-header__nav\">\n        <button class=\"view__all-conferences button\">Conferences</button>\n        <button class=\"view__all-divisions button\">Divisions</button>\n        <button class=\"view__all-teams button\">Teams</button>\n    </nav>\n    ";
+  return "\n    \n    <div class=\"main-header__title\">\n        <img class=\"nhl__logo\" src=\"http://hockeyonly.com/NhlNewLogo.gif\">\n        <h1>National Hockey League</h1>\n    </div>\n    <nav class=\"main-header__nav\">\n        <button class=\"view__all-conferences button\">Conferences</button>\n        <button class=\"view__all-divisions button\">Divisions</button>\n        <button class=\"view__all-teams button\">Teams</button>\n    </nav>\n    ";
+}
+},{}],"js/components/Teams.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Teams;
+
+function Teams(teams) {
+  return "\n    <ul class=\"flex-list\">\n    ".concat(teams.map(function (team) {
+    return "\n        <li class=\"flex-list__item\">\n          <div class=\"flex-item-container\">\n            <img id=\"".concat(team.id, "\" class=\"team__logo\" src=\"").concat(team.logo, "\" alt=\"Team Logo\">\n        </div>\n      </li>\n    ");
+  }).join(''), "\n  </ul>\n  ");
 }
 },{}],"js/components/Divisions.js":[function(require,module,exports) {
 "use strict";
@@ -176,12 +189,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Divisions;
 
+var _Teams = _interopRequireDefault(require("./Teams"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function Divisions(divisions) {
   return "\n      <ul class=\"list\">\n      ".concat(divisions.map(function (division) {
-    return "\n          <li class=\"list__item\">\n            <div class=\"item-container\">\n              <h3 class=\"division__name\" id=\"".concat(division.id, "\">").concat(division.name, "</h3>\n          </div>\n        </li>\n      ");
+    return "\n          <li class=\"list__item\">\n            <div class=\"item-container\">\n              <h3 class=\"division__name\" id=\"".concat(division.id, "\">").concat(division.name, "</h3>\n              ").concat((0, _Teams.default)(division.teams), "\n          </div>\n        </li>\n      ");
   }).join(''), "\n    </ul>\n    ");
 }
-},{}],"js/components/Conferences.js":[function(require,module,exports) {
+},{"./Teams":"js/components/Teams.js"}],"js/components/Conferences.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -211,22 +228,9 @@ var _Divisions = _interopRequireDefault(require("./Divisions"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Conference(conference) {
-  return "\n    <h2 class=\"conference__name\">".concat(conference.name, "</h2>\n    <ul class=\"conference__divisions\">\n        <li class=\"conference__division>\n            ").concat((0, _Divisions.default)(conference.divisions), "\n        </li>\n    </ul>\n    ");
+  return "\n    <h2 class=\"single-conference__name\">".concat(conference.name, "</h2>\n    <ul class=\"conference__divisions\">\n        <li class=\"conference__division>\n            ").concat((0, _Divisions.default)(conference.divisions), "\n        </li>\n    </ul>\n    ");
 }
-},{"./Divisions":"js/components/Divisions.js"}],"js/components/Teams.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = Teams;
-
-function Teams(teams) {
-  return "\n    <ul class=\"flex-list\">\n    ".concat(teams.map(function (team) {
-    return "\n        <li class=\"flex-list__item\">\n          <div class=\"flex-item-container\">\n            <img id=\"".concat(team.id, "\" class=\"team__logo\" src=\"").concat(team.logo, "\" alt=\"Team Logo\">\n        </div>\n      </li>\n    ");
-  }).join(''), "\n  </ul>\n  ");
-}
-},{}],"js/components/Division.js":[function(require,module,exports) {
+},{"./Divisions":"js/components/Divisions.js"}],"js/components/Division.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -239,7 +243,7 @@ var _Teams = _interopRequireDefault(require("./Teams"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Division(division) {
-  return "\n    <h2 class=\"division__name\">".concat(division.name, "</h2>\n    ").concat((0, _Teams.default)(division.teams), "\n    ");
+  return "\n    <h2 class=\"single-division__name\">".concat(division.name, "</h2>\n    ").concat((0, _Teams.default)(division.teams), "\n    ");
 }
 },{"./Teams":"js/components/Teams.js"}],"js/components/Team.js":[function(require,module,exports) {
 "use strict";
@@ -250,7 +254,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Team;
 
 function Team(team) {
-  return "\n    <h2 class=\"division__name\">".concat(team.location, " ").concat(team.name, "</h2>\n    <img class=\"team__logo\" src=\"").concat(team.logo, "\">\n    ");
+  return "\n    <h2 class=\"single-team__name\">".concat(team.location, " ").concat(team.name, "</h2>\n    <img class=\"single-team__logo\" src=\"").concat(team.logo, "\">\n    <section class=\"add__comment\">\n        <h3>Add Team Comment</h3>\n        <input type=\"select\" class=\"add__team-id\" placeholder=\"team name\">\n            <input type=\"text\" class=\"add__team--comment\" placeholder=\"comment\">\n            <button class=\"add__comment--submit clickable\">Add Comment</button>\n        </section> \n    ");
 }
 },{}],"js/app.js":[function(require,module,exports) {
 "use strict";
@@ -390,7 +394,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51837" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51115" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
