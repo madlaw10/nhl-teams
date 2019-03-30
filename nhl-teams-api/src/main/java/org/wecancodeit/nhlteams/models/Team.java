@@ -1,10 +1,14 @@
 package org.wecancodeit.nhlteams.models;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,10 +22,11 @@ public class Team {
 	private String location;
 	@Lob
 	private String logo;
-	
 	@ManyToOne
 	@JsonIgnore
 	private Division division;
+	@OneToMany(mappedBy="team")
+	private Collection<Comment> comments;
 
 	public Team() {
 	}
@@ -31,6 +36,7 @@ public class Team {
 		this.location = location;
 		this.logo = logo;
 		this.division= division;
+		this.comments = new ArrayList<Comment>();
 	}
 
 	public Long getId() {
@@ -52,6 +58,11 @@ public class Team {
 	public Division getDivision() {
 		return division;
 	}
+
+	public Collection<Comment> getComments() {
+		return comments;
+	}
+	
 	
 
 }

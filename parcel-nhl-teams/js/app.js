@@ -7,6 +7,8 @@ import Divisions from './components/Divisions'
 import Division from './components/Division'
 import Teams from './components/Teams'
 import Team from './components/Team'
+import Comment from './components/Comment'
+
 
 header()
 main()
@@ -28,6 +30,10 @@ function main() {
   viewSingleConference()
   viewSingleDivision()
   viewSingleTeam()
+  viewSingleComment()
+  addComment()
+  editComment()
+  removeSingleComment()
 
 }
 
@@ -89,6 +95,53 @@ function viewSingleTeam() {
 			})
 		}
 	})
+}
+
+function addComment() {
+  events.on(getAppContext(), 'click', () => {
+    if(event.target.classList.contains('add__comment--submit')) {
+      const commentContent = event.target.parentElement.querySelector('.add__team--comment').value
+      const teamId = event.target.parentElement.querySelector('.add__team--team').value
+
+      api.postRequest('http://localhost:8080/comments/add', {
+        commentContent: commentContent,
+        teamId: teamId
+      }, (team) => getAppContext().innerHTML = Team(team))
+    }
+  })
+}
+
+
+function viewSingleComment() {
+	events.on(getAppContext(), 'click', () => {
+		if(event.target.classList.contains('comment__content')) {
+			api.getRequest(`http://localhost:8080/comments/${event.target.id}`, comment => {
+				getAppContext().innerHTML = Comment(comment)
+			})
+		}
+	})
+}
+
+function editComment() {
+  events.on(getAppContext(), 'click', () => {
+    if(event.target.classList.contains('edit__comment--submit')) {
+      const newContent = event.target.parentElement.querySelector('.edit__comment--content').value
+
+      api.postRequest(`http://localhost:8080/comments/edit/${event.target.id}`, {
+        newContent: newContent,
+      }, (comment) => getAppContext().innerHTML = Comment(comment))
+    }
+  })
+}
+
+function removeSingleComment() {
+  events.on(getAppContext(), 'click', () => {
+		if(event.target.classList.contains('delete__team--comment')) {
+      api.deleteRequest(`http://localhost:8080/comments/delete/${event.target.id}`, team => {
+				getAppContext().innerHTML = Team(team)
+      })
+    }
+  })
 }
 
 function getHeaderContext() {

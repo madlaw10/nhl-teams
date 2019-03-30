@@ -28,7 +28,7 @@ public class DivisionTest {
 	private DivisionRepository divisionRepo;
 	
 	@Test
-	public void shouldLoadConferenceByName() {
+	public void shouldLoadDivisionByName() {
 		Conference conference = conferenceRepo.save(new Conference("Conference"));
 		Division division = divisionRepo.save(new Division("Division", conference));
 		

@@ -31,7 +31,7 @@ public class TeamTest {
 	private TeamRepository teamRepo;
 	
 	@Test
-	public void shouldLoadConferenceByName() {
+	public void shouldLoadTeamByName() {
 		Conference conference = conferenceRepo.save(new Conference("Conference"));
 		Division division = divisionRepo.save(new Division("Division", conference));
 		Team team = teamRepo.save(new Team("Team Name", "Team Location", "Team Logo", division));
